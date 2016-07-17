@@ -16,7 +16,7 @@ class LoginFeatureTest extends FeatureTest with Mockito {
 
   @Bind val userService = smartMock[UserService]
 
-  val mockToken = "my-mock-token"
+  val mockToken = "my-mock-modersky"
 
   "/login" should {
     s"return json object containing $mockToken token if details correct" in {

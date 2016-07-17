@@ -5,8 +5,7 @@ import com.example.swagger.TodoSwaggerDocument
 import com.github.xiaodongw.swagger.finatra.SwaggerSupport
 import com.twitter.finagle.http.Request
 import com.twitter.finatra.http.Controller
-
-
+import com.example.filters.UserContext._
 
 class PingController extends Controller with SwaggerSupport {
 
@@ -19,6 +18,7 @@ class PingController extends Controller with SwaggerSupport {
       .responseWith[PingResponse](200, "The pong message")
   }) { request: Request =>
   	info("ping")
-    PingResponse("pong")
+
+    PingResponse(s"pong ${request.user.username}")
   }
 }

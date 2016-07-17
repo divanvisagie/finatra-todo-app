@@ -13,11 +13,11 @@ class TokenFeatureTest extends FeatureTest {
     "respond to ping with 200 and message" in {
       server.httpGet(
         path = "/ping",
-        headers = Map("Authorization" -> "my-mock-token"),
+        headers = Map("Authorization" -> "my-mock-modersky"),
         andExpect = Ok,
         withJsonBody =
           """
-            {"message": "pong"}
+            {"message": "pong modersky"}
           """)
     }
   }

@@ -1,7 +1,6 @@
 package com.example.controllers
 
 import javax.inject.Inject
-
 import com.example.domain.http.{LoginRequest, LoginResponse}
 import com.example.services.UserService
 import com.example.swagger.TodoSwaggerDocument

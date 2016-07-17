@@ -1,6 +1,7 @@
 package com.example
 
 import com.example.controllers.{PingController, UserController}
+import com.example.filters.TokenFilter
 import com.example.swagger.TodoSwaggerDocument
 import com.twitter.finagle.http.{Request, Response}
 import com.twitter.finatra.http.HttpServer
@@ -8,8 +9,13 @@ import com.twitter.finatra.http.filters.{CommonFilters, LoggingMDCFilter, TraceI
 import com.twitter.finatra.http.routing.HttpRouter
 import io.swagger.models.Info
 import com.github.xiaodongw.swagger.finatra.SwaggerController
+import com.twitter.finagle.{Service, SimpleFilter}
+import com.twitter.util.Future
+import com.twitter.finagle.http.Status._
 
 object TodoServerMain extends TodoServer
+
+
 
 class TodoServer extends HttpServer {
 
@@ -19,6 +25,7 @@ class TodoServer extends HttpServer {
     .title("Todo")
   )
 
+
   override def defaultFinatraHttpPort = ":9999"
 
   override def configureHttp(router: HttpRouter) {
@@ -27,7 +34,7 @@ class TodoServer extends HttpServer {
       .filter[TraceIdMDCFilter[Request, Response]]
       .filter[CommonFilters]
       .add(new SwaggerController(swagger = TodoSwaggerDocument))
-      .add[PingController]
+      .add[TokenFilter, PingController]
       .add[UserController]
   }
 

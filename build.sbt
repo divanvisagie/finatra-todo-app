@@ -31,6 +31,7 @@ libraryDependencies ++= Seq(
 
   "com.twitter.finatra" %% "finatra-http" % versions.finatra,
   "com.twitter.finatra" %% "finatra-slf4j" % versions.finatra,
+  "com.twitter.finatra" %% "finatra-httpclient" % versions.finatra,
   "ch.qos.logback" % "logback-classic" % versions.logback,
   "ch.qos.logback" % "logback-classic" % versions.logback % "test",
 

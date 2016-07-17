@@ -15,6 +15,7 @@ class UserController @Inject()(userService: UserService) extends Controller with
   post("/login", swagger {
     _.summary("Check login details and return token if successful")
       .tag("User")
+      .bodyParam[LoginRequest]("User details")
       .responseWith[LoginResponse](200, "Valid token to use in headers")
       .responseWith(401, "Invalid Credentials")
   }) { loginRequest: LoginRequest =>

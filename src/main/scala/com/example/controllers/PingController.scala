@@ -15,6 +15,7 @@ class PingController extends Controller with SwaggerSupport {
   get("/ping", swagger {
     _.summary("Get response for ping")
       .tag("Ping")
+      .headerParam[String]("Authorization","The authorization token",required = true)
       .responseWith[PingResponse](200, "The pong message")
   }) { request: Request =>
   	info("ping")

@@ -35,6 +35,7 @@ libraryDependencies ++= Seq(
   "ch.qos.logback" % "logback-classic" % versions.logback % "test",
 
   "com.twitter.finatra" %% "finatra-http" % versions.finatra % "test",
+  "com.twitter.finatra" %% "finatra-jackson" % versions.finatra % "test",
   "com.twitter.inject" %% "inject-server" % versions.finatra % "test",
   "com.twitter.inject" %% "inject-app" % versions.finatra % "test",
   "com.twitter.inject" %% "inject-core" % versions.finatra % "test",
@@ -42,6 +43,7 @@ libraryDependencies ++= Seq(
   "com.google.inject.extensions" % "guice-testlib" % versions.guice % "test",
 
   "com.twitter.finatra" %% "finatra-http" % versions.finatra % "test" classifier "tests",
+  "com.twitter.finatra" %% "finatra-jackson" % versions.finatra % "test" classifier "tests",
   "com.twitter.inject" %% "inject-server" % versions.finatra % "test" classifier "tests",
   "com.twitter.inject" %% "inject-app" % versions.finatra % "test" classifier "tests",
   "com.twitter.inject" %% "inject-core" % versions.finatra % "test" classifier "tests",

@@ -1,5 +1,6 @@
 package com.example
 
+import com.example.controllers.{PingController, UserController}
 import com.example.swagger.TodoSwaggerDocument
 import com.twitter.finagle.http.{Request, Response}
 import com.twitter.finatra.http.HttpServer
@@ -8,9 +9,9 @@ import com.twitter.finatra.http.routing.HttpRouter
 import io.swagger.models.Info
 import com.github.xiaodongw.swagger.finatra.SwaggerController
 
-object ExampleServerMain extends ExampleServer
+object TodoServerMain extends TodoServer
 
-class ExampleServer extends HttpServer {
+class TodoServer extends HttpServer {
 
   TodoSwaggerDocument.info(new Info()
     .description("Todo application API")
@@ -27,6 +28,7 @@ class ExampleServer extends HttpServer {
       .filter[CommonFilters]
       .add(new SwaggerController(swagger = TodoSwaggerDocument))
       .add[PingController]
+      .add[UserController]
   }
 
 }

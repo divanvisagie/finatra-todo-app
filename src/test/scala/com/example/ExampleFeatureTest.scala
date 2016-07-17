@@ -13,7 +13,10 @@ class ExampleFeatureTest extends FeatureTest {
       server.httpGet(
         path = "/ping",
         andExpect = Ok,
-        withBody = "pong")
+        withJsonBody =
+          """
+            {"message": "pong"}
+          """)
     }
   }
 }

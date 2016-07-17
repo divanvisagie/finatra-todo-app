@@ -1,15 +1,20 @@
 package com.example.services
 
-import javax.inject.Singleton
+import javax.inject.{Inject, Singleton}
 
+import com.example.domain.User
 import com.example.domain.http.{LoginRequest, LoginResponse}
 import com.twitter.util.Future
 
 @Singleton
-class UserService {
+class UserService @Inject()(tokenService: TokenService) {
 
   def login(loginRequest: LoginRequest): Future[Option[LoginResponse]] = {
-    val response = LoginResponse("")
-    Future value Option(response)
+
+    val token = tokenService.generateTokenForUser(
+      User(loginRequest.username)
+    )
+
+    Future value Option(LoginResponse(token))
   }
 }

@@ -3,9 +3,6 @@ package com.example.unit.helper
 import com.twitter.util.{Return, Throw}
 import org.scalatest.concurrent.Futures
 
-/**
-  * Created by divan on 2016/07/17.
-  */
 trait TwitterFutures extends Futures {
 
   import scala.language.implicitConversions

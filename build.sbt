@@ -3,7 +3,7 @@ organization := "com.example"
 
 version := "1.0.0-SNAPSHOT"
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.8"
 
 fork in run := true
 
@@ -26,6 +26,9 @@ lazy val versions = new {
 }
 
 libraryDependencies ++= Seq(
+
+  "com.jason-goodwin" %% "authentikat-jwt" % "0.4.1",
+
 
   "com.github.xiaodongw" %% "swagger-finatra2" % versions.swagger,
 

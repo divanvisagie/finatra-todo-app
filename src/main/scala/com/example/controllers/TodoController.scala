@@ -18,7 +18,7 @@ class TodoController @Inject()(todoService: TodoService) extends Controller with
 
   get("/todo", swagger {
     _.summary("Get list of todos for the logged in user")
-      .tag("Ping")
+      .tag("Todo")
       .headerParam[String]("Authorization","The authorization token",required = true)
       .responseWith[Seq[Todo]](200, "user's list of todos")
   }) { request: Request =>

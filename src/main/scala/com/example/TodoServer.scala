@@ -1,6 +1,6 @@
 package com.example
 
-import com.example.controllers.{PingController, UserController}
+import com.example.controllers.{PingController, TodoController, UserController}
 import com.example.filters.TokenFilter
 import com.example.swagger.TodoSwaggerDocument
 import com.example.warmup.WarmupHandler
@@ -30,6 +30,7 @@ class TodoServer extends HttpServer {
       .filter[CommonFilters]
       .add(new SwaggerController(swagger = TodoSwaggerDocument))
       .add[TokenFilter, PingController]
+      .add[TokenFilter, TodoController]
       .add[UserController]
   }
 

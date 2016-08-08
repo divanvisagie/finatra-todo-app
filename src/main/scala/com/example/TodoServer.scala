@@ -1,6 +1,6 @@
 package com.example
 
-import com.example.controllers.{PingController, TodoController, UserController}
+import com.example.controllers.{DefaultController, PingController, TodoController, UserController}
 import com.example.filters.TokenFilter
 import com.example.modules.UserModule
 import com.example.services.TokenService
@@ -39,6 +39,7 @@ class TodoServer extends HttpServer {
       .add[TokenFilter, PingController]
       .add[TokenFilter, TodoController]
       .add[UserController]
+      .add[DefaultController]
   }
 
   override def warmup(): Unit = {

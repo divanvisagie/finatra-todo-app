@@ -2,6 +2,7 @@ package com.example
 
 import com.example.controllers.{PingController, TodoController, UserController}
 import com.example.filters.TokenFilter
+import com.example.services.TokenService
 import com.example.swagger.TodoSwaggerDocument
 import com.example.warmup.WarmupHandler
 import com.github.xiaodongw.swagger.finatra.SwaggerController

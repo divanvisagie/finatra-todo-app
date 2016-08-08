@@ -27,7 +27,7 @@ class TokenFilter @Inject()(tokenService: TokenService)
   override def apply(request: Request, service: Service[Request, Response]): Future[Response] = {
 
     val authHeader = request.headerMap.getOrElse("Authorization","")
-
+    val reqMetod = request.method.toString == "POST"
     tokenService.userForToken(authHeader) flatMap {
       case Some(tokenUser: User) =>
         UserContext.setUser(request,tokenUser)

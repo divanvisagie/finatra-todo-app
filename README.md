@@ -1,4 +1,4 @@
-# Finatra Typesafe [Activator](https://www.typesafe.com/get-started) HTTP Server Seed Template
+# Finatra Todo
 
 [![Build Status](https://travis-ci.org/divanvisagie/finatra-todo-app.svg?branch=master)](https://travis-ci.org/divanvisagie/finatra-todo-app)
 

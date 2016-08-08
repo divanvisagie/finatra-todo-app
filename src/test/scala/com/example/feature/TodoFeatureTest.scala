@@ -17,13 +17,11 @@ class TodoFeatureTest extends FeatureTest with Mockito {
   @Bind val tokenService = smartMock[TokenService]
   @Bind val todoService = smartMock[TodoService]
 
-  tokenService.userForToken(any[String]) returns
-    Future.value(Option(User("""divan""")))
-
   "get /todo" should {
     "return the json list of the users todos" in {
-
-      todoService.getTodoList(any[User]) returns
+      tokenService.userForToken(any[String]) returns
+        Future.value(Option(User("""divan""")))
+      todoService.list(any[User]) returns
         Future.value(Seq[Todo](
           Todo("Clean the cat"),
           Todo("Set fire to the rain")
@@ -41,6 +39,30 @@ class TodoFeatureTest extends FeatureTest with Mockito {
              "text": "Set fire to the rain"
            }]
           """
+      )
+    }
+  }
+
+  "post /todo" should {
+    "confirm creation of todo" in {
+      tokenService.userForToken(any[String]) returns
+        Future.value(Option(User("""divan""")))
+      server.httpPost(
+        path = "/todo",
+        headers = Map("Authorization" -> "my-mock-token"),
+        postBody =
+          """
+            {
+              "text" : "Todo Test"
+            }
+          """,
+        withJsonBody =
+          """
+            {
+              "message": "write successful"
+            }
+          """,
+        andExpect = Ok
       )
     }
   }

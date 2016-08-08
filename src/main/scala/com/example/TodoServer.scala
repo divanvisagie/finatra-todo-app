@@ -2,14 +2,17 @@ package com.example
 
 import com.example.controllers.{PingController, TodoController, UserController}
 import com.example.filters.TokenFilter
+import com.example.modules.UserModule
 import com.example.services.TokenService
 import com.example.swagger.TodoSwaggerDocument
 import com.example.warmup.WarmupHandler
 import com.github.xiaodongw.swagger.finatra.SwaggerController
+import com.google.inject.Module
 import com.twitter.finagle.http.{Request, Response}
 import com.twitter.finatra.http.HttpServer
 import com.twitter.finatra.http.filters.{CommonFilters, LoggingMDCFilter, TraceIdMDCFilter}
 import com.twitter.finatra.http.routing.HttpRouter
+import com.twitter.inject.requestscope.FinagleRequestScopeFilter
 import io.swagger.models.Info
 
 object TodoServerMain extends TodoServer
@@ -22,10 +25,13 @@ class TodoServer extends HttpServer {
     .title("Todo")
   )
 
+  override def modules = Seq(UserModule)
+
   override def defaultFinatraHttpPort = ":9999"
 
   override def configureHttp(router: HttpRouter): Unit = {
     router
+      .filter[FinagleRequestScopeFilter[Request,Response]]
       .filter[LoggingMDCFilter[Request, Response]]
       .filter[TraceIdMDCFilter[Request, Response]]
       .filter[CommonFilters]

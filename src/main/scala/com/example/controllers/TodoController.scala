@@ -1,18 +1,16 @@
 package com.example.controllers
 
-import javax.inject.Inject
+import javax.inject.{Inject, Provider}
 
-import com.example.domain.Todo
+import com.example.domain.{Todo, UserContext}
 import com.example.domain.http.{LoginRequest, TodoPostRequest, TodoPostResponse}
-import com.example.filters.UserContext._
 import com.example.services.TodoService
 import com.example.swagger.TodoSwaggerDocument
 import com.github.xiaodongw.swagger.finatra.SwaggerSupport
 import com.twitter.finagle.http.Request
 import com.twitter.finatra.http.Controller
-import com.twitter.finatra.request
 
-class TodoController @Inject()(todoService: TodoService) extends Controller with SwaggerSupport  {
+class TodoController @Inject()(userContext: Provider[UserContext],todoService: TodoService) extends Controller with SwaggerSupport  {
   implicit protected val swagger = TodoSwaggerDocument
 
   get("/todo", swagger {
@@ -22,7 +20,8 @@ class TodoController @Inject()(todoService: TodoService) extends Controller with
       .responseWith[Seq[Todo]](200, "user's list of todos")
   }) { request: Request =>
     info("todo get")
-    todoService.list(request.user)
+    val user = userContext.get.user
+    todoService.list(user)
   }
 
   post("/todo", swagger {
@@ -32,10 +31,9 @@ class TodoController @Inject()(todoService: TodoService) extends Controller with
       .headerParam[String]("Authorization","The authorization token", required = true)
       .responseWith[TodoPostResponse](200, "write was a success")
   }) { post: TodoPostRequest =>
-    val user = request.asInstanceOf[Request].user
-
     info("todo post")
-    //todoService.create(request.user, request)
+    val user = userContext.get.user
+    todoService.create(user, post.toDomain)
     TodoPostResponse("write successful")
   }
 }

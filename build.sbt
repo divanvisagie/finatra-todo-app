@@ -30,7 +30,7 @@ libraryDependencies ++= Seq(
 
   "com.jason-goodwin" %% "authentikat-jwt" % "0.4.1",
   "com.typesafe.slick" %% "slick" % versions.slick,
-
+  "com.github.t3hnar" % "scala-bcrypt_2.11" % "2.6",
 
   "com.github.xiaodongw" %% "swagger-finatra2" % versions.swagger,
 

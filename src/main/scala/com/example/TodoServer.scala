@@ -2,7 +2,7 @@ package com.example
 
 import com.example.controllers.{DefaultController, PingController, TodoController, UserController}
 import com.example.filters.TokenFilter
-import com.example.modules.UserModule
+import com.example.modules.{DatabaseModule, UserModule}
 import com.example.swagger.TodoSwaggerDocument
 import com.example.warmup.WarmupHandler
 import com.github.xiaodongw.swagger.finatra.SwaggerController
@@ -23,7 +23,7 @@ class TodoServer extends HttpServer {
     .title("Todo")
   )
 
-  override def modules = Seq(UserModule)
+  override def modules = Seq(UserModule,DatabaseModule)
 
   override def defaultFinatraHttpPort = ":9999"
 

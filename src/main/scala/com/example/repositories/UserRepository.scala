@@ -1,6 +1,6 @@
 package com.example.repositories
 
-import javax.inject.Inject
+import javax.inject.{Inject, Singleton}
 
 import com.example.domain.User
 import com.twitter.util.{Future => TwitterFuture}
@@ -9,6 +9,7 @@ import com.scalaza.raven.future.Conversions._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
+@Singleton
 class UserRepository @Inject()(db: Database) {
   implicit val session: Session = db.createSession()
 

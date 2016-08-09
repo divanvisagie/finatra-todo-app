@@ -1,4 +1,8 @@
 package com.example.domain.http
 
-case class LoginRequest(username: String, password: String)
+import com.example.domain.User
+
+case class LoginRequest(username: String, password: String) {
+  def toDomain = User(0,username,password,"")
+}
 

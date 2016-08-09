@@ -20,7 +20,7 @@ class PingController @Inject()(userContext: Provider[UserContext]) extends Contr
       .responseWith[PingResponse](200, "The pong message")
   }) { request: Request =>
   	info("ping")
-    val user = userContext.get.user
-    PingResponse(s"pong ${user.username}")
+    val username = userContext.get.username
+    PingResponse(s"pong ${username}")
   }
 }

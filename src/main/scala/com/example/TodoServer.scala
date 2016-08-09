@@ -3,11 +3,9 @@ package com.example
 import com.example.controllers.{DefaultController, PingController, TodoController, UserController}
 import com.example.filters.TokenFilter
 import com.example.modules.UserModule
-import com.example.services.TokenService
 import com.example.swagger.TodoSwaggerDocument
 import com.example.warmup.WarmupHandler
 import com.github.xiaodongw.swagger.finatra.SwaggerController
-import com.google.inject.Module
 import com.twitter.finagle.http.{Request, Response}
 import com.twitter.finatra.http.HttpServer
 import com.twitter.finatra.http.filters.{CommonFilters, LoggingMDCFilter, TraceIdMDCFilter}

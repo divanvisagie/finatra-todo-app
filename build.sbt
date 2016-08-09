@@ -23,11 +23,13 @@ lazy val versions = new {
   val scalatest = "2.2.3"
   val specs2 = "2.3.12"
   val swagger = "0.5.0"
+  val slick = "3.1.1"
 }
 
 libraryDependencies ++= Seq(
 
   "com.jason-goodwin" %% "authentikat-jwt" % "0.4.1",
+  "com.typesafe.slick" %% "slick" % versions.slick,
 
 
   "com.github.xiaodongw" %% "swagger-finatra2" % versions.swagger,

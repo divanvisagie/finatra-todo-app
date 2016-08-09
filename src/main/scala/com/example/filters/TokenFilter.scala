@@ -2,7 +2,7 @@ package com.example.filters
 
 import javax.inject.Inject
 
-import com.example.domain.{User, UserContext}
+import com.example.domain.UserContext
 import com.example.services.TokenService
 import com.twitter.finagle.http.Status._
 import com.twitter.finagle.http.{Request, Response}
@@ -19,10 +19,9 @@ class TokenFilter @Inject()(requestScope: FinagleRequestScope, tokenService: Tok
 
     val authHeader = request.headerMap.getOrElse("Authorization","")
 
-    tokenService.userForToken(authHeader) flatMap {
-      case Some(tokenUser: User) =>
-        val userContext = UserContext(tokenUser)
-        requestScope.seed[UserContext](userContext)
+    tokenService.userContextForToken(authHeader) flatMap {
+      case Some(tokenUser: UserContext) =>
+        requestScope.seed[UserContext](tokenUser)
         service(request)
       case _ =>
         request.response.statusCode = Unauthorized.code

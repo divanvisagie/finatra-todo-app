@@ -20,8 +20,7 @@ class TodoController @Inject()(userContext: Provider[UserContext],todoService: T
       .responseWith[Seq[Todo]](200, "user's list of todos")
   }) { request: Request =>
     info("todo get")
-    val user = userContext.get.user
-    todoService.list(user)
+    todoService.list(userContext.get.username)
   }
 
   post("/todo", swagger {
@@ -32,8 +31,7 @@ class TodoController @Inject()(userContext: Provider[UserContext],todoService: T
       .responseWith[TodoPostResponse](200, "write was a success")
   }) { post: TodoPostRequest =>
     info("todo post")
-    val user = userContext.get.user
-    todoService.create(user, post.toDomain)
+    todoService.create(userContext.get.username, post.toDomain)
     TodoPostResponse("write successful")
   }
 }

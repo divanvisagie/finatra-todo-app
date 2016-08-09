@@ -1,8 +1,9 @@
 package com.example.services
 
 import javax.inject.Singleton
+
 import authentikat.jwt.{JsonWebToken, JwtClaimsSet, JwtHeader}
-import com.example.domain.User
+import com.example.domain.{User, UserContext}
 import com.twitter.util.Future
 
 @Singleton
@@ -31,9 +32,13 @@ class TokenService {
     ))
   }
 
-  def userForToken(token: String): Future[Option[User]] = {
+  def userContextForToken(token: String): Future[Option[UserContext]] = {
     Future.value(getPayloadForToken(token) match {
-      case Some(map: Map[String,String]) => Option(User(map("username")))
+      case Some(map: Map[String,String]) => Option(
+        UserContext(
+          username = map("username")
+        )
+      )
       case None => None
     })
   }

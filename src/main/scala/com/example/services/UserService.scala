@@ -12,7 +12,12 @@ class UserService @Inject()(tokenService: TokenService) {
   def login(loginRequest: LoginRequest): Future[Option[LoginResponse]] = {
 
     val token = tokenService.generateTokenForUser(
-      User(loginRequest.username)
+      User(
+        id = 0,
+        username = loginRequest.username,
+        password = "",
+        email = ""
+      )
     )
 
     Future value Option(LoginResponse(token))

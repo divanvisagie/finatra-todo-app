@@ -1,7 +1,7 @@
 package com.example.feature
 
 import com.example.TodoServer
-import com.example.domain.User
+import com.example.domain.{User, UserContext}
 import com.example.services.TokenService
 import com.google.inject.testing.fieldbinder.Bind
 import com.twitter.finagle.http.Status._
@@ -15,12 +15,13 @@ class TokenFeatureTest extends FeatureTest with Mockito {
   override val server = new EmbeddedHttpServer(new TodoServer)
 
   @Bind val tokenService = smartMock[TokenService]
+  val mockUserContext =  UserContext("divan")
 
   "get /ping with correct token header" should {
     "respond to ping with 200 and message" in {
 
-      tokenService.userForToken("my-mock-token") returns
-        Future.value(Option(User("divan")))
+      tokenService.userContextForToken("my-mock-token") returns
+        Future.value(Option(mockUserContext))
 
       server.httpGet(
         path = "/ping",
@@ -36,7 +37,7 @@ class TokenFeatureTest extends FeatureTest with Mockito {
   "get /ping with no Authorization header" should {
     "respond to ping with 401" in {
 
-      tokenService.userForToken(any[String]) returns(Future value None)
+      tokenService.userContextForToken(any[String]) returns(Future value None)
       server.httpGet(
         path = "/ping",
         andExpect = Unauthorized
@@ -46,7 +47,7 @@ class TokenFeatureTest extends FeatureTest with Mockito {
 
   "get /ping with empty Authorization header" should {
     "respond to ping with 401" in {
-      tokenService.userForToken(any[String]) returns(Future value None)
+      tokenService.userContextForToken(any[String]) returns(Future value None)
       server.httpGet(
         path = "/ping",
         headers = Map("Authorization" -> ""),

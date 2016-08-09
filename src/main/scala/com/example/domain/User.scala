@@ -2,13 +2,16 @@ package com.example.domain
 
 import javax.inject.Inject
 
-case class User(username: String)
+import sun.security.util.Password
 
-case class UserContext(var user: User) {
-  def this() {
-    this(User(""))
-  }
-}
+case class User(
+  id: Int,
+  username: String,
+  password: String,
+  email: String
+)
+
+
 //object UserContext {
 //  def apply(user: User) = new UserContext()
 //}

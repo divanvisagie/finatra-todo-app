@@ -1,7 +1,7 @@
 package com.example.feature
 
 import com.example.TodoServer
-import com.example.domain.User
+import com.example.domain.{User, UserContext}
 import com.example.domain.http.{LoginRequest, LoginResponse}
 import com.example.services.{TokenService, UserService}
 import com.google.inject.testing.fieldbinder.Bind
@@ -21,8 +21,10 @@ class LoginFeatureTest extends FeatureTest with Mockito {
   @Bind val tokenService = smartMock[TokenService]
   @Bind val userService = smartMock[UserService]
 
-  tokenService.userForToken(mockToken) returns
-    Future.value(Option(User("""divan""")))
+  val mockUserContext =  UserContext("divan")
+
+  tokenService.userContextForToken(mockToken) returns
+    Future.value(Option(mockUserContext))
 
 
 

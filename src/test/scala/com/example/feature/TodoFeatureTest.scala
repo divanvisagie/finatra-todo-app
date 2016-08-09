@@ -1,7 +1,7 @@
 package com.example.feature
 
 import com.example.TodoServer
-import com.example.domain.{Todo, User}
+import com.example.domain.{Todo, User, UserContext}
 import com.example.services.{TodoService, TokenService}
 import com.google.inject.testing.fieldbinder.Bind
 import com.twitter.finatra.http.test.EmbeddedHttpServer
@@ -17,11 +17,13 @@ class TodoFeatureTest extends FeatureTest with Mockito {
   @Bind val tokenService = smartMock[TokenService]
   @Bind val todoService = smartMock[TodoService]
 
+  val mockUserContext = UserContext("divan")
+
   "get /todo" should {
     "return the json list of the users todos" in {
-      tokenService.userForToken(any[String]) returns
-        Future.value(Option(User("""divan""")))
-      todoService.list(any[User]) returns
+      tokenService.userContextForToken(any[String]) returns
+        Future.value(Option(mockUserContext))
+      todoService.list(any[String]) returns
         Future.value(Seq[Todo](
           Todo("Clean the cat"),
           Todo("Set fire to the rain")
@@ -45,8 +47,8 @@ class TodoFeatureTest extends FeatureTest with Mockito {
 
   "post /todo" should {
     "confirm creation of todo" in {
-      tokenService.userForToken(any[String]) returns
-        Future.value(Option(User("""divan""")))
+      tokenService.userContextForToken(any[String]) returns
+        Future.value(Option(mockUserContext))
       server.httpPost(
         path = "/todo",
         headers = Map("Authorization" -> "my-mock-token"),

@@ -15,7 +15,6 @@ class LoginFeatureTest extends FeatureTest with Mockito {
 
   val mockToken = "my-valid-token"
 
-
   override val server = new EmbeddedHttpServer(new TodoServer)
 
   @Bind val tokenService = smartMock[TokenService]
@@ -25,7 +24,6 @@ class LoginFeatureTest extends FeatureTest with Mockito {
 
   tokenService.userContextForToken(mockToken) returns
     Future.value(Option(mockUserContext))
-
 
 
   "/login" should {
